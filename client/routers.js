@@ -12,15 +12,17 @@ Meteor.Router.add({
 
     '/about': 'about',
 
-    '/love/:id' : function(id) {
+    '/share/:id' : function(id) {
+
         console.log('we are at ' + this.canonicalPath);
         console.log("our parameters: " + this.params);
 
-        Session.set('love._id', id);
-        return 'love';
+        Session.set('share._id', id);
+        return 'share';
     },
 
     '/users/:screenName': function(screenName) {
+
         console.log('we are at ' + this.canonicalPath);
         console.log("our parameters: " + this.params);
 
@@ -34,8 +36,6 @@ Meteor.Router.add({
         }
     },
 
-    '/balance': 'balance',
-
     '/admin': 'admin',
     
     '*': 'not_found'
@@ -47,7 +47,11 @@ Meteor.Router.filters({
         if (Meteor.loggingIn()) {
             return 'loading';
         } else if (Meteor.user()) {
-            return page;
+            if (!Meteor.loggingIn()) {
+                return page;
+            } else {
+                return 'loading';
+            }
         } else {
             return 'home';
         }
@@ -62,6 +66,6 @@ Meteor.Router.filters({
     }    
 });
 
-Meteor.Router.filter('checkLoggedIn', {except: ['home', 'love']});
+Meteor.Router.filter('checkLoggedIn', {except: ['home', 'share']});
 
-Meteor.Router.filter('checkAdmin', {only: ['admin', 'balance']});
+Meteor.Router.filter('checkAdmin', {only: ['admin']});
