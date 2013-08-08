@@ -10,12 +10,10 @@ if (Meteor.isClient) {
             } else {
                 return '';
             }
-        }
+        };
 
         Meteor.subscribe("kudos", currentDomain());
         Meteor.subscribe("allUserData");
-
-        //Meteor.subscribe("publicLove");
 
     });
 }
@@ -27,15 +25,13 @@ if (Meteor.isServer) {
         return Kudos.find({domain: currentDomain});
     });
 
-//    Meteor.publish("publicLove", function() {
-//
-//        return Kudos.find({}, {$limit:1});
-//    });
-
     Meteor.publish("allUserData", function () {
         return Meteor.users.find({}, {
             fields: {
-                profile: 1
+                _id: 1,
+                balance: 1,
+                profile: 1,
+                enabled: 1
             }
         });
     });
