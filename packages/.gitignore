@@ -2,3 +2,7 @@ router
 page-js-ie-support
 moment
 sugarjs
+cron
+cron-tick
+HTML5-History-API
+sugar
